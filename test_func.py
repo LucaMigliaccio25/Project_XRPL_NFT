@@ -20,3 +20,8 @@ print(f"Client connected to: {client.url}")
 wallet = generate_faucet_wallet(client, debug=True)
 print(f"Wallet address: {wallet.address}")
 print(f"Wallet seed: {wallet.seed}")
+
+# Test della funzione get_balance
+address = wallet.address
+balance = get_balance(address, client)
+print(f"Balance for {address}: {balance}")
