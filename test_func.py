@@ -33,9 +33,19 @@ print(f"Balance for {address}: {balance}")
 # TEST DELLA CREAZIONE DI UNA TRANSAZIONE DI PAGAMENTO TRA DUE WALLET #
 #######################################################
 
+# Funzione per stampare i bilanci
+def print_balances(wallets, client):
+    for wallet in wallets:
+        balance = get_balance(wallet.classic_address, client)
+        print(f"Balance for {wallet.classic_address}: {balance} drops")
+
 # Creazione di due wallet finanziati
 sender_wallet = generate_faucet_wallet(client, debug=True)
 receiver_wallet = generate_faucet_wallet(client, debug=True)
+
+# Stampa dei bilanci iniziali
+print("Initial Balances:")
+print_balances([sender_wallet, receiver_wallet], client)
 
 # Creazione della transazione di pagamento
 current_validated_ledger = get_latest_validated_ledger_sequence(client)
@@ -53,4 +63,8 @@ signed_tx = sign(payment_tx, sender_wallet)
 response = submit_and_wait(signed_tx, client)
 
 # Output
-print(f"Payment transaction response: {response}")
+# print(f"Payment transaction response: {response}")
+
+# Stampa dei bilanci finali
+print("\nFinal Balances:")
+print_balances([sender_wallet, receiver_wallet], client)
