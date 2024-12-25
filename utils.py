@@ -34,3 +34,20 @@ def print_balances(wallets: list, client: JsonRpcClient) -> None:
     print("Balances:")
     for wallet in wallets:
         print(f"{wallet.address}: {get_balance(wallet.address, client)}")
+
+def mint_nft_token(seed, uri, flags, transfer_fee, taxon):
+    minter_wallet=Wallet.from_seed(seed)
+    mint_tx=NFTokenMint(
+        account=minter_wallet.address,
+        uri=str_to_hex(uri),
+        flags=int(flags),
+        transfer_fee=int(transfer_fee),
+        nftoken_taxon=int(taxon)
+    )
+    response=""
+    try:
+        response=submit_and_wait(mint_tx,client,minter_wallet)
+        response=response.result
+    except XRPLReliableSubmissionException as e:
+        response=f"Submit failed: {e}"
+    return response
