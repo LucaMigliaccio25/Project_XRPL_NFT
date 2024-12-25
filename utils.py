@@ -17,3 +17,12 @@ def _generate_xrpl_wallet_seed() -> str:
     """
     return keypairs.generate_seed()
 
+def get_wallet(seed: str | None = None) -> Wallet:
+    """
+    Generate a wallet.
+    """
+    if seed:
+        wallet = Wallet.from_seed(seed)
+    else:
+        wallet = generate_faucet_wallet(client, debug=True)
+    return wallet
