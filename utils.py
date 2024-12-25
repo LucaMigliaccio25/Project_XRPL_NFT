@@ -51,3 +51,25 @@ def mint_nft_token(seed, uri, flags, transfer_fee, taxon):
     except XRPLReliableSubmissionException as e:
         response=f"Submit failed: {e}"
     return response
+
+def create_sell_offer(seed, amount, nftoken_id, expiration, destination):
+    owner_wallet = Wallet.from_seed(seed)
+    expiration_date = datetime.now()
+    if expiration != '':
+        expiration_date = datetime_to_ripple_time(expiration_date)
+        expiration_date = expiration_date + int(expiration)
+    sell_offer_tx=NFTokenCreateOffer(
+        account=owner_wallet.address,
+        nftoken_id=nftoken_id,
+        amount=amount,
+        destination=destination if destination != '' else None,
+        expiration=expiration_date if expiration != '' else None,
+        flags=1
+    )
+    response=""
+    try:
+        response=submit_and_wait(sell_offer_tx,client,owner_wallet)
+        response=response.result
+    except XRPLReliableSubmissionException as e:
+        response=f"Submit failed: {e}"
+    return response
