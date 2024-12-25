@@ -3,9 +3,11 @@ from xrpl.wallet import Wallet, generate_faucet_wallet
 from xrpl.clients import JsonRpcClient
 from xrpl.account import get_balance
 from xrpl.models import Payment
-from xrpl.transaction import sign, submit_and_wait
+from xrpl.transaction import sign, submit_and_wait, XRPLReliableSubmissionException
 from xrpl.account import get_next_valid_seq_number
 from xrpl.ledger import get_latest_validated_ledger_sequence
+from xrpl.models.transactions import NFTokenMint
+from xrpl.utils import str_to_hex
 
 # Test di generazione di un seed
 seed = keypairs.generate_seed()
@@ -30,7 +32,7 @@ balance = get_balance(address, client)
 print(f"Balance for {address}: {balance}")
 
 #######################################################
-# TEST DELLA CREAZIONE DI UNA TRANSAZIONE DI PAGAMENTO TRA DUE WALLET #
+# TEST DELLA CREAZIONE DI UNA TRANSAZIONE DI PAGAMENTO TRA DUE WALLET
 #######################################################
 
 # Funzione per stampare i bilanci
@@ -68,3 +70,57 @@ response = submit_and_wait(signed_tx, client)
 # Stampa dei bilanci finali
 print("\nFinal Balances:")
 print_balances([sender_wallet, receiver_wallet], client)
+
+###################################################
+# TEST DELLA CREAZIONE DI UN NFT 
+###################################################
+
+# Creazione di un wallet finanziato
+minter_wallet = generate_faucet_wallet(client, debug=True)
+print(f"Wallet address: {minter_wallet.classic_address}")
+print(f"Wallet seed: {minter_wallet.seed}")
+
+# Parametri dell'NFT
+uri = "https://example.com/nft"  # URI dell'NFT
+flags = 8  # Flag per rendere l'NFT trasferibile
+transfer_fee = 0  # Nessuna tassa di trasferimento
+taxon = 1  # Categoria dell'NFT
+
+# Funzione per testare la creazione di un NFT
+try:
+    # Ottieni il numero di sequenza corrente per il wallet
+    sequence = get_next_valid_seq_number(minter_wallet.classic_address, client)
+    print(f"Sequence number for {minter_wallet.classic_address}: {sequence}")
+
+    # Ottieni il ledger valido corrente
+    current_validated_ledger = get_latest_validated_ledger_sequence(client)
+
+    # Creazione della transazione NFTokenMint
+    mint_tx = NFTokenMint(
+        account=minter_wallet.classic_address,
+        uri=str_to_hex(uri),
+        flags=flags,
+        transfer_fee=transfer_fee,
+        nftoken_taxon=taxon,
+        sequence=sequence,
+        last_ledger_sequence=current_validated_ledger + 10,  # Valido per i prossimi 10 ledger
+        fee="10",  # Tassa minima in drops
+    )
+
+    # Firma e invio della transazione
+    print(f"Transaction to be submitted: {mint_tx}")
+    signed_tx = sign(mint_tx, minter_wallet)
+    response = submit_and_wait(signed_tx, client)
+    print(f"Transaction response: {response}")
+
+    # Verifica del risultato
+    if response.result["meta"]["TransactionResult"] == "tesSUCCESS":
+        print("NFT successfully minted!")
+    else:
+        print(f"Transaction failed: {response.result['meta']['TransactionResult']}")
+
+except XRPLReliableSubmissionException as e:
+    print(f"Transaction submission failed: {e}")
+
+except Exception as e:
+    print(f"An error occurred: {e}")
