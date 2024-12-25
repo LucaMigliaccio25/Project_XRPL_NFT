@@ -73,3 +73,16 @@ def create_sell_offer(seed, amount, nftoken_id, expiration, destination):
     except XRPLReliableSubmissionException as e:
         response=f"Submit failed: {e}"
     return response
+
+def accept_sell_offer(seed, offer_index):
+    buyer_wallet=Wallet.from_seed(seed)
+    accept_offer_tx=NFTokenAcceptOffer(
+       account=buyer_wallet.classic_address,
+       nftoken_sell_offer=offer_index
+    )
+    try:
+        response=submit_and_wait(accept_offer_tx,client,buyer_wallet)
+        response=response.result
+    except XRPLReliableSubmissionException as e:
+        response=f"Submit failed: {e}"
+    return response
