@@ -6,8 +6,9 @@ from xrpl.models import Payment
 from xrpl.transaction import sign, submit_and_wait, XRPLReliableSubmissionException
 from xrpl.account import get_next_valid_seq_number
 from xrpl.ledger import get_latest_validated_ledger_sequence
-from xrpl.models.transactions import NFTokenMint
-from xrpl.utils import str_to_hex
+from xrpl.models.transactions import NFTokenMint, NFTokenCreateOffer
+from xrpl.utils import str_to_hex, datetime_to_ripple_time
+from datetime import datetime, timedelta
 
 # Test di generazione di un seed
 seed = keypairs.generate_seed()
@@ -116,11 +117,51 @@ try:
     # Verifica del risultato
     if response.result["meta"]["TransactionResult"] == "tesSUCCESS":
         print("NFT successfully minted!")
+        
+        # Estrai l'ID dell'NFT dal risultato
+        nftoken_id = response.result["meta"]["AffectedNodes"][1]["CreatedNode"]["NewFields"]["NFTokens"][0]["NFToken"]["NFTokenID"]
+        print(f"NFT Token ID: {nftoken_id}")
     else:
         print(f"Transaction failed: {response.result['meta']['TransactionResult']}")
-
+except KeyError as e:
+    print(f"Error extracting NFT Token ID: {e}")
+    
 except XRPLReliableSubmissionException as e:
     print(f"Transaction submission failed: {e}")
 
 except Exception as e:
     print(f"An error occurred: {e}")
+
+##########################################
+# TEST PER LA FARE UN'OFFERTA DI VENDITA DELL'NFT
+##########################################
+
+# Creazione dell'offerta di vendita
+try:
+    current_time = datetime.now()
+    expiration_time = datetime_to_ripple_time(current_time + timedelta(minutes=60))
+
+    sell_offer_tx = NFTokenCreateOffer(
+        account=minter_wallet.classic_address,
+        nftoken_id=nftoken_id,  # ID dell'NFT creato
+        amount="1000000",  # Prezzo dell'offerta in drops (1 XRP = 1,000,000 drops)
+        expiration=expiration_time,  # Scadenza dell'offerta
+        flags=1  # Flag per indicare che è un'offerta di vendita
+    )
+
+    # Firma e invio della transazione
+    signed_sell_offer = sign(sell_offer_tx, minter_wallet)
+    sell_offer_response = submit_and_wait(signed_sell_offer, client)
+    print(f"Sell Offer Response: {sell_offer_response}")
+
+    if sell_offer_response.result["meta"]["TransactionResult"] == "tesSUCCESS":
+        print("Sell offer successfully created!")
+        sell_offer_id = sell_offer_response.result["meta"]["offer_id"]
+    else:
+        print(f"Sell Offer Transaction Failed: {sell_offer_response.result['meta']['TransactionResult']}")
+
+except XRPLReliableSubmissionException as e:
+    print(f"Sell Offer Submission Failed: {e}")
+
+except Exception as e:
+    print(f"An error occurred during Sell Offer creation: {e}")
