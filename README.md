@@ -13,14 +13,14 @@ L'azienda di produzione, quindi, durante il processo di produzione si rivolge al
 Il progetto è organizzato come segue:
 
 nft-project/
-├── server.py           # Server FastAPI per gestire le richieste API
-├── utils.py            # Logica per interagire con la blockchain XRPL (raffinamento di test_func.py)
-├── email_utils.py      # Funzioni per inviare email tramite l'API di Mailjet
-├── main.py             # Script per l'utilizzo del sistema NFT
-├── test_func.py        # Script per testare le funzionalità XRPL (creazione wallet, NFT, offerte)
-├── test.http           # File per testare gli endpoint API con REST Client (non committato)
-├── mailjet_key.env     # Credenziali Mailjet (non committato)
-├── requirements.txt    # Elenco delle dipendenze Python essenziali
+- server.py           # Server FastAPI per gestire le richieste API
+- utils.py            # Logica per interagire con la blockchain XRPL (raffinamento di test_func.py)
+- email_utils.py      # Funzioni per inviare email tramite l'API di Mailjet
+- main.py             # Script per l'utilizzo del sistema NFT
+- test_func.py        # Script per testare le funzionalità XRPL (creazione wallet, NFT, offerte)
+- test.http           # File per testare gli endpoint API con REST Client (non committato)
+- mailjet_key.env     # Credenziali Mailjet (non committato)
+- requirements.txt    # Elenco delle dipendenze Python essenziali
 
 ## Prerequisiti
 
