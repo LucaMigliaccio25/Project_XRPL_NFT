@@ -31,8 +31,9 @@ nft-project/
 
 2. Configurazione Mailjet
     - Aggiungere le chiavi API di Mailjet al file mailjet_key.env
-        - MAILJET_API_KEY=la-tua-api-key
-        - MAILJET_API_SECRET=la-tua-secret-key
+      ```
+      MAILJET_API_KEY=la-tua-api-key
+      MAILJET_API_SECRET=la-tua-secret-key
     - Assicurarsi che l'indirizzo email mittente sia verificato su Mailjet
 
 ## Installazione
@@ -45,15 +46,16 @@ nft-project/
 ## Test 1: creazione dell'NFT
 
 1. Eseguire il file main.py, con output atteso del tipo:
-    Everything ok
-    wallet_receiver, NFT_token_id = (<xrpl.wallet.main.Wallet object at 0x...> 'number_value')
+      ```
+      Everything ok
+      wallet_receiver, NFT_token_id = (<xrpl.wallet.main.Wallet object at 0x...> 'number_value')
 
 ## Test 2: utilizzo del servizio Mailjet
 
 1. Eseguire il file server.py per avviare il server;
 2. Testare il servizio tramite un file test.http, fatto come segue:
-
-    POST http://127.0.0.1:5000/nft HTTP/1.1
+    ```
+    POST http://127.0.0.1:5000/nft HTTP/1.1\n
     content-type: application/json
 
     {
