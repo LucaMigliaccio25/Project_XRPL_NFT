@@ -3,7 +3,7 @@ from mailjet_rest import Client
 from dotenv import load_dotenv
 
 # Load environment variables for Mailjet API credentials
-load_dotenv()
+load_dotenv(dotenv_path="mailjet_key.env")
 
 def create_email_content(wallet):
     """
