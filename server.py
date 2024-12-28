@@ -11,7 +11,7 @@ from string import ascii_letters
 BASE_URL = "http://127.0.0.1:5000"  # URL base per il metadata dell'NFT
 seed_company = "sEd7uhRLEHf7sELoTUiKTcDwgn3zvdA"  # Seed del wallet aziendale per la creazione di NFT
 ALPHABET = ascii_letters  # Alfabeto per generare URI casuali
-COMPANY_EMAIL = "kings@diaden.com"  # Email del mittente
+COMPANY_EMAIL =  "kings@diaden.com"  # Email del mittente
 
 # Creazione dell'app FastAPI
 app = FastAPI()
