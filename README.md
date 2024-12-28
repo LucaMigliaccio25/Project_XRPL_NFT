@@ -31,8 +31,8 @@ nft-project/
 
 2. Configurazione Mailjet
     - Aggiungere le chiavi API di Mailjet al file mailjet_key.env
-        MAILJET_API_KEY=la-tua-api-key
-        MAILJET_API_SECRET=la-tua-secret-key
+        - MAILJET_API_KEY=la-tua-api-key
+        - MAILJET_API_SECRET=la-tua-secret-key
     - Assicurarsi che l'indirizzo email mittente sia verificato su Mailjet
 
 ## Installazione
