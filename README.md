@@ -13,14 +13,14 @@ L'azienda di produzione, quindi, durante il processo di produzione si rivolge al
 Il progetto è organizzato come segue:
 
 nft-project/
-├── server.py           # Server FastAPI per gestire le richieste API
-├── utils.py            # Logica per interagire con la blockchain XRPL (raffinamento di test_func.py)
-├── email_utils.py      # Funzioni per inviare email tramite l'API di Mailjet
-├── main.py             # Script per l'utilizzo del sistema NFT
-├── test_func.py        # Script per testare le funzionalità XRPL (creazione wallet, NFT, offerte)
-├── test.http           # File per testare gli endpoint API con REST Client (non committato)
-├── mailjet_key.env     # Credenziali Mailjet (non committato)
-├── requirements.txt    # Elenco delle dipendenze Python essenziali
+- server.py           # Server FastAPI per gestire le richieste API
+- utils.py            # Logica per interagire con la blockchain XRPL (raffinamento di test_func.py)
+- email_utils.py      # Funzioni per inviare email tramite l'API di Mailjet
+- main.py             # Script per l'utilizzo del sistema NFT
+- test_func.py        # Script per testare le funzionalità XRPL (creazione wallet, NFT, offerte)
+- test.http           # File per testare gli endpoint API con REST Client (non committato)
+- mailjet_key.env     # Credenziali Mailjet (non committato)
+- requirements.txt    # Elenco delle dipendenze Python essenziali
 
 ## Prerequisiti
 
@@ -31,8 +31,9 @@ nft-project/
 
 2. Configurazione Mailjet
     - Aggiungere le chiavi API di Mailjet al file mailjet_key.env
-        MAILJET_API_KEY=la-tua-api-key
-        MAILJET_API_SECRET=la-tua-secret-key
+      ```
+      MAILJET_API_KEY=la-tua-api-key
+      MAILJET_API_SECRET=la-tua-secret-key
     - Assicurarsi che l'indirizzo email mittente sia verificato su Mailjet
 
 ## Installazione
@@ -45,15 +46,16 @@ nft-project/
 ## Test 1: creazione dell'NFT
 
 1. Eseguire il file main.py, con output atteso del tipo:
-    Everything ok
-    wallet_receiver, NFT_token_id = (<xrpl.wallet.main.Wallet object at 0x...> 'number_value')
+      ```
+      Everything ok
+      wallet_receiver, NFT_token_id = (<xrpl.wallet.main.Wallet object at 0x...> 'number_value')
 
 ## Test 2: utilizzo del servizio Mailjet
 
 1. Eseguire il file server.py per avviare il server;
 2. Testare il servizio tramite un file test.http, fatto come segue:
-
-    POST http://127.0.0.1:5000/nft HTTP/1.1
+    ```
+    POST http://127.0.0.1:5000/nft HTTP/1.1\n
     content-type: application/json
 
     {
