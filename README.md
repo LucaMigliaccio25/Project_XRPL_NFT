@@ -8,6 +8,17 @@ L'azienda di produzione, quindi, durante il processo di produzione si rivolge al
 - IDENTITY
 - UNIQUE DIGITAL CONTENT
 
+Di seguito riportiamo il diagramma di flusso che mostra:
+- interazione DIADEN-Producer;
+- interazione Producer-Customer;
+- ruolo di DIADEN nel processo.
+
+![Flow Diagram](images/flowDiagram_diaden.png)
+
+La seguente immagine, invece, è tratta dalla presentazione del progetto originale e mostra il QR code "marchiato" sull'oggetto prodotto:
+
+![QR code](images/qr_code_diaden.png)
+
 ## Struttura del Progetto
 
 Il progetto è organizzato come segue:
@@ -34,6 +45,7 @@ nft-project/
       ```
       MAILJET_API_KEY=la-tua-api-key
       MAILJET_API_SECRET=la-tua-secret-key
+      
     - Assicurarsi che l'indirizzo email mittente sia verificato su Mailjet
 
 ## Installazione
