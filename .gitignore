@@ -9,6 +9,9 @@ __pycache__/
 # Ignora i file .env contenenti chiavi sensibili
 *.env
 
+# Ignora il file test.http
+test.http
+
 # Distribution / packaging
 .Python
 build/
