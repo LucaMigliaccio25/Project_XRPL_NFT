@@ -79,7 +79,7 @@ nft-project/
 
 ## Osservazioni
 
-Tale progetto è una versione leggermente estesa e più dettagliata del progetto sviluppato dal Team UniNa dell'Università di Napoli Federico II, partecipante all'Hackathon 2024 basato sulla blockchain XRPL, tenutosi a Roma nel mese di Ottobre 2024. Dunque, gli autori del precedente progetto sono stati:
+Tale progetto è una versione leggermente estesa e più dettagliata del progetto sviluppato dal Team UniNa dell'Università di Napoli Federico II, partecipante all'Hackathon 2024 basato sulla blockchain XRPL, tenutosi a Roma nel mese di Ottobre 2024. Gli autori del precedente progetto sono stati:
 - Francesco Lucibello
 - Davide Aruta
 - Davide Brignola
@@ -87,10 +87,14 @@ Tale progetto è una versione leggermente estesa e più dettagliata del progetto
 - Mario Pezzella
 - Youssef Roudmane
 
-## Riferimenti GitHub
+## Riferimenti Github (progetto precedente)
 
-- backend: https://github.com/Frollamma/IXH24-Hackathon (autori: Migliaccio Luca, Francesco Lucibello)
+- backend: https://github.com/Frollamma/IXH24-Hackathon (autori: Migliaccio Luca, Lucibello Francesco)
 - frontend: https://github.com/roodeeex/diaden (autore: Youssef Roudmane)
+
+## Riferimenti XRPL
+
+- sito di riferimento della blockchain XRPL: https://xrpl.org/docs
 
 ## Autore
 
